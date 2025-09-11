@@ -1,0 +1,56 @@
+{
+  "name": "nextjs-template-mongodb",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A Next.js template for building applications with MongoDB, featuring TypeScript and shadcn/ui / Tailwind CSS integration",
+  "author": {
+    "name": "Jesse Hall",
+    "url": "https://github.com/codeSTACKr"
+  },
+  "homepage": "https://github.com/mongodb-developer/nextjs-template-mongodb#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mongodb-developer/nextjs-template-mongodb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mongodb-developer/nextjs-template-mongodb/issues"
+  },
+  "keywords": [
+    "nextjs",
+    "mongodb",
+    "typescript",
+    "tailwindcss",
+    "vercel",
+    "template",
+    "shadcn"
+  ],
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.2",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.510.0",
+    "mongodb": "^6.3.0",
+    "next": "15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.3.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "15.1.6",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
