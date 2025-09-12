@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PostSubmissionSchema, type PostSubmission } from "@/lib/schemas";
+import { toast } from "sonner";
 import {
   Form,
   FormControl,
@@ -42,13 +43,21 @@ export function PostSubmissionForm({ onSubmitSuccess }: PostSubmissionFormProps)
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit post");
+        const errorData = await response.json();
+        if (errorData.code === "DUPLICATE_URL") {
+          toast.error("This URL has already been submitted");
+        } else {
+          toast.error("Failed to submit post");
+        }
+        return;
       }
 
       form.reset();
+      toast.success("Post submitted successfully!");
       onSubmitSuccess();
     } catch (error) {
       console.error("Error submitting post:", error);
+      toast.error("An error occurred while submitting the post");
     } finally {
       setIsSubmitting(false);
     }

@@ -20,6 +20,15 @@ export async function POST(request: NextRequest) {
     const db = await getDatabase();
     const postsCollection = db.collection("posts");
 
+    // Check if URL already exists
+    const existingPost = await postsCollection.findOne({ url: validatedData.url });
+    if (existingPost) {
+      return NextResponse.json({ 
+        error: "URL already submitted",
+        code: "DUPLICATE_URL"
+      }, { status: 409 });
+    }
+
     const newPost = {
       title: validatedData.title,
       url: validatedData.url,

@@ -21,6 +21,15 @@ interface PostItemProps {
   onVote: (postId: string, points: number) => void;
 }
 
+function extractDomain(url: string): string {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+}
+
 function formatTimeAgo(date: string | Date): string {
   const now = new Date();
   const submittedDate = new Date(date);
@@ -86,14 +95,18 @@ export function PostItem({ post, onVote }: PostItemProps) {
 
   const isUrl = post.url && post.url.trim() !== "";
   const displayTitle = isUrl ? (
-    <a 
-      href={post.url} 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="hover:underline"
-    >
-      {post.title}
-    </a>
+    <span>
+      {post.title} (
+      <a 
+        href={post.url} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="hover:underline"
+      >
+        {extractDomain(post.url!)}
+      </a>
+      )
+    </span>
   ) : (
     <span>{post.title}</span>
   );
