@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
+import { PostSubmissionForm } from "@/components/PostSubmissionForm";
+import { PostList } from "@/components/PostList";
 
 const DATA = {
   title: "Next.js with MongoDB",
@@ -41,6 +43,7 @@ const DATA = {
 export default function Home() {
   const { data: session, isPending } = authClient.useSession();
   const [dbStatus, setDbStatus] = useState<string>("Checking...");
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
     async function checkDb() {
@@ -63,6 +66,10 @@ export default function Home() {
         },
       },
     });
+  };
+
+  const handlePostSubmitSuccess = () => {
+    setRefreshTrigger(prev => prev + 1);
   };
 
   return (
@@ -146,6 +153,18 @@ export default function Home() {
                   <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1 dark:text-white" />
                 </Link>
               </Button>
+            </div>
+
+            {/* Post Submission Form - Only show for logged in users */}
+            {session?.user && (
+              <div className="mt-12">
+                <PostSubmissionForm onSubmitSuccess={handlePostSubmitSuccess} />
+              </div>
+            )}
+
+            {/* Post List */}
+            <div className="mt-8">
+              <PostList refreshTrigger={refreshTrigger} />
             </div>
           </main>
           <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#023430] py-5 sm:gap-2 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
