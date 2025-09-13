@@ -6,7 +6,7 @@ import logoDark from "@/assets/logo-dark.svg";
 import vercelLogotypeLight from "@/assets/vercel-logotype-light.svg";
 import vercelLogotypeDark from "@/assets/vercel-logotype-dark.svg";
 import Link from "next/link";
-import { ArrowRight, FileText, LogIn } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { authClient } from "@/lib/auth-client";
@@ -18,26 +18,36 @@ const DATA = {
   title: "Next.js with MongoDB",
   description:
     "A minimal template for building full-stack React applications using Next.js, Vercel, and MongoDB.",
-  button: {
-    text: "Deploy to Vercel",
-    href: "https://vercel.com/new/clone?repository-name=mongodb-nextjs&repository-url=https%3A%2F%2Fgithub.com%2Fmongodb-developer%2Fvercel-template-mongodb&project-name=mongodb-nextjs&demo-title=MongoDB%20%26%20Next.js%20Starter%20Template&demo-description=A%20minimal%20template%20for%20building%20full-stack%20React%20applications%20using%20Next.js%2C%20Vercel%2C%20and%20MongoDB.&demo-url=https%3A%2F%2Fnextjs.mongodb.com%2F&demo-image=https%3A%2F%2Fnextjs.mongodb.com%2Fog.png&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH&from=templates",
+  buttons: {
+    primary: {
+      className: "rounded-full bg-[#00ED64] px-5 py-2.5 font-semibold tracking-tight text-[#001E2B] transition-colors duration-200 hover:bg-[#00684A] hover:text-[#FFFFFF] lg:px-7 lg:py-3"
+    },
+    ghost: {
+      className: "group flex items-center gap-2 leading-none tracking-tight"
+    }
   },
   link: {
     text: "Deploy Now",
     href: "https://vercel.com/new/clone?repository-name=mongodb-nextjs&repository-url=https%3A%2F%2Fgithub.com%2Fmongodb-developer%2Fvercel-template-mongodb&project-name=mongodb-nextjs&demo-title=MongoDB%20%26%20Next.js%20Starter%20Template&demo-description=A%20minimal%20template%20for%20building%20full-stack%20React%20applications%20using%20Next.js%2C%20Vercel%2C%20and%20MongoDB.&demo-url=https%3A%2F%2Fnextjs.mongodb.com%2F&demo-image=https%3A%2F%2Fnextjs.mongodb.com%2Fog.png&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH&from=templates",
   },
-  footerLinks: [
-    {
-      text: "Docs",
-      href: "https://www.mongodb.com/docs/?utm_campaign=devrel&utm_source=third-party-content&utm_medium=cta&utm_content=template-nextjs-mongodb&utm_term=jesse.hall",
-      icon: "FileText",
+  footerLinks: {
+    nextjs: {
+      text: "Next.js",
+      href: "https://nextjs.org"
     },
-    {
-      text: "MongoDB Atlas Login",
-      href: "https://account.mongodb.com/account/login/?utm_campaign=devrel&utm_source=third-party-content&utm_medium=cta&utm_content=template-nextjs-mongodb&utm_term=jesse.hall",
-      icon: "LogIn",
+    mongodb: {
+      text: "MongoDB",
+      href: "https://www.mongodb.com"
     },
-  ],
+    vercel: {
+      text: "Vercel",
+      href: "https://vercel.com"
+    },
+    github: {
+      text: "GitHub",
+      href: "https://github.com/mongodb-developer/nextjs-template-mongodb"
+    }
+  },
 };
 
 export default function Home() {
@@ -120,21 +130,21 @@ export default function Home() {
               {isPending ? (
                 <Button
                   disabled
-                  className="rounded-full bg-[#00ED64] px-5 py-2.5 font-semibold tracking-tight text-[#001E2B] transition-colors duration-200 hover:bg-[#00684A] hover:text-[#FFFFFF] lg:px-7 lg:py-3"
+                  className={DATA.buttons.primary.className}
                 >
                   Loading...
                 </Button>
               ) : session?.user ? (
                 <Button
                   onClick={handleLogout}
-                  className="rounded-full bg-[#00ED64] px-5 py-2.5 font-semibold tracking-tight text-[#001E2B] transition-colors duration-200 hover:bg-[#00684A] hover:text-[#FFFFFF] lg:px-7 lg:py-3"
+                  className={DATA.buttons.primary.className}
                 >
                   Logout
                 </Button>
               ) : (
                 <Button
                   asChild
-                  className="rounded-full bg-[#00ED64] px-5 py-2.5 font-semibold tracking-tight text-[#001E2B] transition-colors duration-200 hover:bg-[#00684A] hover:text-[#FFFFFF] lg:px-7 lg:py-3"
+                  className={DATA.buttons.primary.className}
                 >
                   <Link href="/login">
                     Log in to post
@@ -144,7 +154,7 @@ export default function Home() {
               <Button
                 variant="ghost"
                 asChild
-                className="group flex items-center gap-2 leading-none tracking-tight"
+                className={DATA.buttons.ghost.className}
               >
                 <Link href={DATA.link.href} target="_blank">
                   {DATA.link.text}
@@ -169,35 +179,35 @@ export default function Home() {
             <div className="text-sm text-[#61646B] dark:text-[#94979E] flex-1">
               Built with{" "}
               <Link 
-                href="https://nextjs.org" 
+                href={DATA.footerLinks.nextjs.href} 
                 target="_blank" 
                 className="text-[#00ED64] hover:underline"
               >
-                Next.js
+                {DATA.footerLinks.nextjs.text}
               </Link>{" "}
               and native{" "}
               <Link 
-                href="https://www.mongodb.com" 
+                href={DATA.footerLinks.mongodb.href} 
                 target="_blank" 
                 className="text-[#00ED64] hover:underline"
               >
-                MongoDB
+                {DATA.footerLinks.mongodb.text}
               </Link>{" "}
               integration on{" "}
               <Link 
-                href="https://vercel.com" 
+                href={DATA.footerLinks.vercel.href} 
                 target="_blank" 
                 className="text-[#00ED64] hover:underline"
               >
-                Vercel
+                {DATA.footerLinks.vercel.text}
               </Link>
               . The source code is available on{" "}
               <Link 
-                href="https://github.com/mongodb-developer/nextjs-template-mongodb" 
+                href={DATA.footerLinks.github.href} 
                 target="_blank" 
                 className="text-[#00ED64] hover:underline"
               >
-                GitHub
+                {DATA.footerLinks.github.text}
               </Link>
               .
             </div>
