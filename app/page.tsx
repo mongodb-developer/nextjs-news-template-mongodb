@@ -23,8 +23,8 @@ const DATA = {
     href: "https://vercel.com/new/clone?repository-name=mongodb-nextjs&repository-url=https%3A%2F%2Fgithub.com%2Fmongodb-developer%2Fvercel-template-mongodb&project-name=mongodb-nextjs&demo-title=MongoDB%20%26%20Next.js%20Starter%20Template&demo-description=A%20minimal%20template%20for%20building%20full-stack%20React%20applications%20using%20Next.js%2C%20Vercel%2C%20and%20MongoDB.&demo-url=https%3A%2F%2Fnextjs.mongodb.com%2F&demo-image=https%3A%2F%2Fnextjs.mongodb.com%2Fog.png&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH&from=templates",
   },
   link: {
-    text: "View on GitHub",
-    href: "https://github.com/mongodb-developer/nextjs-template-mongodb",
+    text: "Deploy Now",
+    href: "https://vercel.com/new/clone?repository-name=mongodb-nextjs&repository-url=https%3A%2F%2Fgithub.com%2Fmongodb-developer%2Fvercel-template-mongodb&project-name=mongodb-nextjs&demo-title=MongoDB%20%26%20Next.js%20Starter%20Template&demo-description=A%20minimal%20template%20for%20building%20full-stack%20React%20applications%20using%20Next.js%2C%20Vercel%2C%20and%20MongoDB.&demo-url=https%3A%2F%2Fnextjs.mongodb.com%2F&demo-image=https%3A%2F%2Fnextjs.mongodb.com%2Fog.png&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH&from=templates",
   },
   footerLinks: [
     {
@@ -165,32 +165,45 @@ export default function Home() {
               <PostList refreshTrigger={refreshTrigger} />
             </div>
           </main>
-          <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#023430] mt-4 py-5 sm:gap-2 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
-            <ul className="flex items-center">
-              {DATA.footerLinks.map((link) => {
-                const icons = {
-                  FileText: FileText,
-                  LogIn: LogIn,
-                };
-                const Icon = icons[link.icon as keyof typeof icons];
-                return (
-                  <Button
-                    key={link.text}
-                    variant="ghost"
-                    asChild
-                    className="flex items-center gap-2 opacity-70 transition-opacity duration-200 hover:opacity-100 h-auto"
-                  >
-                    <Link href={link.href} target="_blank">
-                      <Icon className="h-4 w-4 dark:text-white" />
-                      <span className="text-sm tracking-tight">{link.text}</span>
-                    </Link>
-                  </Button>
-                );
-              })}
-            </ul>
+          <footer className="flex items-start justify-between gap-4 border-t border-[#023430] mt-4 py-5 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
+            <div className="text-sm text-[#61646B] dark:text-[#94979E] flex-1">
+              Built with{" "}
+              <Link 
+                href="https://nextjs.org" 
+                target="_blank" 
+                className="text-[#00ED64] hover:underline"
+              >
+                Next.js
+              </Link>{" "}
+              and native{" "}
+              <Link 
+                href="https://www.mongodb.com" 
+                target="_blank" 
+                className="text-[#00ED64] hover:underline"
+              >
+                MongoDB
+              </Link>{" "}
+              integration on{" "}
+              <Link 
+                href="https://vercel.com" 
+                target="_blank" 
+                className="text-[#00ED64] hover:underline"
+              >
+                Vercel
+              </Link>
+              . The source code is available on{" "}
+              <Link 
+                href="https://github.com/mongodb-developer/nextjs-template-mongodb" 
+                target="_blank" 
+                className="text-[#00ED64] hover:underline"
+              >
+                GitHub
+              </Link>
+              .
+            </div>
             <Badge
               variant={dbStatus === "Database connected" ? "default" : "destructive"}
-              className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap flex-shrink-0 ${
                 dbStatus === "Database connected"
                   ? "border-[#00ED64]/20 bg-[#00ED64]/10 text-[#00684A] dark:bg-[#00ED64]/10 dark:text-[#00ED64]"
                   : "border-red-500/20 bg-red-500/10 text-red-500 dark:text-red-500"
