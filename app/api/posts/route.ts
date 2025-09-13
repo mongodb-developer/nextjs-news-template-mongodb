@@ -54,16 +54,26 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    const limit = parseInt(searchParams.get('limit') || '10', 10);
+    const skip = (page - 1) * limit;
+
     const db = await getDatabase();
     const postsCollection = db.collection("posts");
     const usersCollection = db.collection("user");
 
+    // Get total count for pagination
+    const totalCount = await postsCollection.countDocuments({});
+    const totalPages = Math.ceil(totalCount / limit);
+
     const posts = await postsCollection
       .find({})
       .sort({ points: -1, submittedAt: -1 })
-      .limit(50)
+      .skip(skip)
+      .limit(limit)
       .toArray();
 
     const postsWithUsers = await Promise.all(
@@ -88,7 +98,16 @@ export async function GET() {
       })
     );
 
-    return NextResponse.json(postsWithUsers);
+    return NextResponse.json({
+      posts: postsWithUsers,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalCount,
+        hasNextPage: page < totalPages,
+        hasPrevPage: page > 1,
+      }
+    });
 
   } catch (error) {
     console.error("Error fetching posts:", error);
