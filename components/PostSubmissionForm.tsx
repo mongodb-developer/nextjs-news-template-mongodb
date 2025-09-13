@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PostSubmissionSchema, type PostSubmission } from "@/lib/schemas";
@@ -15,14 +14,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { submitPost } from "@/lib/actions";
 
-interface PostSubmissionFormProps {
-  onSubmitSuccess: () => void;
-}
-
-export function PostSubmissionForm({ onSubmitSuccess }: PostSubmissionFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
+export function PostSubmissionForm() {
   const form = useForm<PostSubmission>({
     resolver: zodResolver(PostSubmissionSchema),
     defaultValues: {
@@ -31,42 +25,28 @@ export function PostSubmissionForm({ onSubmitSuccess }: PostSubmissionFormProps)
     },
   });
 
-  const onSubmit = async (data: PostSubmission) => {
-    setIsSubmitting(true);
-    try {
-      const response = await fetch("/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  const { formState: { isSubmitting } } = form;
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        if (errorData.code === "DUPLICATE_URL") {
-          toast.error("This URL has already been submitted");
-        } else {
-          toast.error("Failed to submit post");
-        }
-        return;
-      }
+  const handleSubmit = async (data: PostSubmission) => {
+    try {
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("url", data.url);
+
+      await submitPost(formData);
 
       form.reset();
       toast.success("Post submitted successfully!");
-      onSubmitSuccess();
     } catch (error) {
       console.error("Error submitting post:", error);
-      toast.error("An error occurred while submitting the post");
-    } finally {
-      setIsSubmitting(false);
+      toast.error(error instanceof Error ? error.message : "Failed to submit post");
     }
   };
 
   return (
     <div className="border border-[#023430] rounded-lg p-6 bg-background">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
           <FormField
             control={form.control}
             name="title"

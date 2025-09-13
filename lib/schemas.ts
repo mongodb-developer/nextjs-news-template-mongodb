@@ -27,7 +27,8 @@ export const PostSchema = z.object({
   title: z.string(),
   url: z.string().optional(),
   points: z.number().default(1),
-  submittedBy: z.string(),
+  submittedById: z.string(),
+  submittedByName: z.string(),
   submittedAt: z.date(),
   votes: z.array(z.string()).default([])
 });

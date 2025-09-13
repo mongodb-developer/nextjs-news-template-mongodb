@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import logo from "@/assets/logo.svg";
 import logoDark from "@/assets/logo-dark.svg";
@@ -8,11 +6,10 @@ import vercelLogotypeDark from "@/assets/vercel-logotype-dark.svg";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { authClient } from "@/lib/auth-client";
-import { useEffect, useState } from "react";
-import { PostSubmissionForm } from "@/components/PostSubmissionForm";
-import { PostList } from "@/components/PostList";
+import { DatabaseStatusBadge } from "@/components/DatabaseStatusBadge";
+import { AuthButton } from "@/components/AuthButton";
+import { PostSection } from "@/components/PostSection";
+import { getServerSession } from "@/components/SessionProvider";
 
 const DATA = {
   title: "Next.js with MongoDB",
@@ -50,37 +47,14 @@ const DATA = {
   },
 };
 
-export default function Home() {
-  const { data: session, isPending } = authClient.useSession();
-  const [dbStatus, setDbStatus] = useState<string>("Checking...");
-  const [refreshTrigger, setRefreshTrigger] = useState(0);
+interface HomeProps {
+  searchParams: Promise<{ page?: string }>;
+}
 
-  useEffect(() => {
-    async function checkDb() {
-      try {
-        const response = await fetch('/api/db-status');
-        const result = await response.text();
-        setDbStatus(result);
-      } catch {
-        setDbStatus("Database connection failed");
-      }
-    }
-    checkDb();
-  }, []);
-
-  const handleLogout = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          window.location.reload();
-        },
-      },
-    });
-  };
-
-  const handlePostSubmitSuccess = () => {
-    setRefreshTrigger(prev => prev + 1);
-  };
+export default async function Home({ searchParams }: HomeProps) {
+  const session = await getServerSession();
+  const resolvedSearchParams = await searchParams;
+  const currentPage = parseInt(resolvedSearchParams.page || '1', 10);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -127,30 +101,7 @@ export default function Home() {
               {DATA.description}
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-5 md:mt-9 lg:mt-10">
-              {isPending ? (
-                <Button
-                  disabled
-                  className={DATA.buttons.primary.className}
-                >
-                  Loading...
-                </Button>
-              ) : session?.user ? (
-                <Button
-                  onClick={handleLogout}
-                  className={DATA.buttons.primary.className}
-                >
-                  Logout
-                </Button>
-              ) : (
-                <Button
-                  asChild
-                  className={DATA.buttons.primary.className}
-                >
-                  <Link href="/login">
-                    Log in to post
-                  </Link>
-                </Button>
-              )}
+              <AuthButton className={DATA.buttons.primary.className} />
               <Button
                 variant="ghost"
                 asChild
@@ -163,17 +114,7 @@ export default function Home() {
               </Button>
             </div>
 
-            {/* Post Submission Form - Only show for logged in users */}
-            {session?.user && (
-              <div className="mt-12">
-                <PostSubmissionForm onSubmitSuccess={handlePostSubmitSuccess} />
-              </div>
-            )}
-
-            {/* Post List */}
-            <div className="mt-8">
-              <PostList refreshTrigger={refreshTrigger} />
-            </div>
+            <PostSection hasUser={!!session?.user} currentPage={currentPage} />
           </main>
           <footer className="flex flex-col sm:flex-row items-start justify-between gap-4 border-t border-[#023430] mt-4 py-5 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
             <div className="text-sm text-[#61646B] dark:text-[#94979E] flex-1">
@@ -211,16 +152,7 @@ export default function Home() {
               </Link>
               .
             </div>
-            <Badge
-              variant={dbStatus === "Database connected" ? "default" : "destructive"}
-              className={`rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap sm:flex-shrink-0 ${
-                dbStatus === "Database connected"
-                  ? "border-[#00ED64]/20 bg-[#00ED64]/10 text-[#00684A] dark:bg-[#00ED64]/10 dark:text-[#00ED64]"
-                  : "border-red-500/20 bg-red-500/10 text-red-500 dark:text-red-500"
-              }`}
-            >
-              {dbStatus}
-            </Badge>
+            <DatabaseStatusBadge />
           </footer>
       </div>
     </div>
