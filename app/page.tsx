@@ -175,7 +175,7 @@ export default function Home() {
               <PostList refreshTrigger={refreshTrigger} />
             </div>
           </main>
-          <footer className="flex items-start justify-between gap-4 border-t border-[#023430] mt-4 py-5 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
+          <footer className="flex flex-col sm:flex-row items-start justify-between gap-4 border-t border-[#023430] mt-4 py-5 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
             <div className="text-sm text-[#61646B] dark:text-[#94979E] flex-1">
               Built with{" "}
               <Link 
@@ -213,7 +213,7 @@ export default function Home() {
             </div>
             <Badge
               variant={dbStatus === "Database connected" ? "default" : "destructive"}
-              className={`rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap flex-shrink-0 ${
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap sm:flex-shrink-0 ${
                 dbStatus === "Database connected"
                   ? "border-[#00ED64]/20 bg-[#00ED64]/10 text-[#00684A] dark:bg-[#00ED64]/10 dark:text-[#00ED64]"
                   : "border-red-500/20 bg-red-500/10 text-red-500 dark:text-red-500"
