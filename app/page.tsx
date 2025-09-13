@@ -74,10 +74,8 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 md:max-w-lg md:px-0 lg:max-w-xl">
-          <header className="py-4">
-          </header>
-          <main className="flex flex-1 flex-col justify-center">
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col p-8 px-5 md:max-w-lg md:px-0 lg:max-w-xl">
+          <main className="flex flex-1 flex-col">
             <div className="flex gap-6 lg:gap-8 items-center mb-6 md:mb-7">
               <Image
                 className="lg:h-8 lg:w-auto dark:hidden"
@@ -167,7 +165,7 @@ export default function Home() {
               <PostList refreshTrigger={refreshTrigger} />
             </div>
           </main>
-          <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#023430] py-5 sm:gap-2 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
+          <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-[#023430] mt-4 py-5 sm:gap-2 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
             <ul className="flex items-center">
               {DATA.footerLinks.map((link) => {
                 const icons = {
