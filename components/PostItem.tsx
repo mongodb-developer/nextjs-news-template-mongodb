@@ -1,6 +1,7 @@
 "use client";
 
 import { useOptimistic, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { Triangle } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Post } from "@/lib/schemas";
@@ -18,6 +19,7 @@ interface OptimisticVote {
 export function PostItem({ post }: PostItemProps) {
   const { data: session } = authClient.useSession();
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const initialVoteData: OptimisticVote = {
     points: post.points,
@@ -30,7 +32,13 @@ export function PostItem({ post }: PostItemProps) {
   );
 
   const handleVote = () => {
-    if (!session?.user || isPending) return;
+    if (isPending) return;
+
+    // Redirect to login if user is not authenticated
+    if (!session?.user) {
+      router.push('/login');
+      return;
+    }
 
     const currentlyVoted = optimisticVote.hasVoted;
     const pointChange = currentlyVoted ? -1 : 1;
@@ -80,8 +88,8 @@ export function PostItem({ post }: PostItemProps) {
       <div className="flex flex-col items-center gap-1 min-w-[40px]">
         <button
           onClick={handleVote}
-          disabled={!session?.user || isPending}
-          className={`transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+          disabled={isPending}
+          className={`transition-colors disabled:opacity-50 ${
             optimisticVote.hasVoted
               ? "text-[#00ED64]"
               : "text-gray-400 hover:text-[#00ED64]"
