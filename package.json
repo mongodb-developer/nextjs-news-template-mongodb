@@ -28,7 +28,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "setup-indexes": "node --env-file=.env scripts/setup-indexes.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
