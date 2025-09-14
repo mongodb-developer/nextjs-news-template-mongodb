@@ -4,10 +4,10 @@ import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
 import { getDatabase } from "@/lib/mongodb";
 import { auth } from "@/lib/auth";
-import { PostSubmissionSchema } from "@/lib/schemas";
+import { PostSubmissionSchema, SubmitPostResult, VoteResult } from "@/lib/schemas";
 import { ObjectId } from "mongodb";
 
-export async function submitPost(formData: FormData) {
+export async function submitPost(formData: FormData): Promise<SubmitPostResult> {
   try {
     const authInstance = await auth;
     const session = await authInstance.api.getSession({
@@ -54,7 +54,7 @@ export async function submitPost(formData: FormData) {
   }
 }
 
-export async function voteOnPost(postId: string) {
+export async function voteOnPost(postId: string): Promise<VoteResult> {
   try {
     const authInstance = await auth;
     const session = await authInstance.api.getSession({
@@ -77,15 +77,15 @@ export async function voteOnPost(postId: string) {
     }
 
     const userId = session.user.id;
-    const votes = post.votes || [];
+    const votes = (post.votes as string[]) || [];
     const hasVoted = votes.includes(userId);
 
-    let newPoints = post.points || 0;
-    let newVotes;
+    let newPoints = (post.points as number) || 0;
+    let newVotes: string[];
 
     if (hasVoted) {
       // Remove vote
-      newVotes = votes.filter((id: string) => id !== userId);
+      newVotes = votes.filter((id) => id !== userId);
       newPoints = Math.max(0, newPoints - 1);
     } else {
       // Add vote

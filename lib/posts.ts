@@ -2,20 +2,7 @@
 
 import { unstable_cache } from "next/cache";
 import { getDatabase } from "@/lib/mongodb";
-import { Post } from "@/lib/schemas";
-
-interface PaginationInfo {
-  currentPage: number;
-  totalPages: number;
-  totalCount: number;
-  hasNextPage: boolean;
-  hasPrevPage: boolean;
-}
-
-interface PostsResponse {
-  posts: Post[];
-  pagination: PaginationInfo;
-}
+import { Post, PostsResponse } from "@/lib/schemas";
 
 async function fetchPostsFromDB(page: number = 1, limit: number = 10): Promise<PostsResponse> {
   const skip = (page - 1) * limit;

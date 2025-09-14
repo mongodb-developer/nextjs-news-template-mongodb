@@ -18,10 +18,6 @@ export const PostSubmissionSchema = z.object({
     }, "Please enter a valid URL")
 });
 
-export const VoteSchema = z.object({
-  postId: z.string().min(1, "Post ID is required")
-});
-
 export const PostSchema = z.object({
   _id: z.string().optional(),
   title: z.string(),
@@ -35,4 +31,31 @@ export const PostSchema = z.object({
 
 export type Post = z.infer<typeof PostSchema>;
 export type PostSubmission = z.infer<typeof PostSubmissionSchema>;
-export type Vote = z.infer<typeof VoteSchema>;
+
+// Common interfaces used across the application
+export interface PaginationInfo {
+  currentPage: number;
+  totalPages: number;
+  totalCount: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
+
+export interface PostsResponse {
+  posts: Post[];
+  pagination: PaginationInfo;
+}
+
+export interface OptimisticVote {
+  points: number;
+  hasVoted: boolean;
+}
+
+export interface VoteResult {
+  points: number;
+  hasVoted: boolean;
+}
+
+export interface SubmitPostResult {
+  success: boolean;
+}

@@ -4,17 +4,12 @@ import { useOptimistic, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Triangle } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { Post } from "@/lib/schemas";
+import { Post, OptimisticVote } from "@/lib/schemas";
 import { voteOnPost } from "@/lib/actions";
 import { getTimeAgo } from "@/lib/utils";
 
 interface PostItemProps {
   post: Post;
-}
-
-interface OptimisticVote {
-  points: number;
-  hasVoted: boolean;
 }
 
 export function PostItem({ post }: PostItemProps) {

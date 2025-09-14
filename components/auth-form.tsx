@@ -13,14 +13,25 @@ import { authClient } from "@/lib/auth-client"
 import { useState } from "react"
 import Link from "next/link"
 
-export function SignupForm({
-  className,
-  ...props
-}: React.ComponentPropsWithoutRef<"div">) {
+interface AuthFormProps extends React.ComponentPropsWithoutRef<"div"> {
+  mode: "login" | "signup"
+}
+
+export function AuthForm({ mode, className, ...props }: AuthFormProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
-  const handleGitHubSignup = async () => {
+  const isLogin = mode === "login"
+  const title = isLogin ? "Welcome back" : "Create an account"
+  const description = isLogin ? "Login with your GitHub account" : "Sign up with your GitHub account"
+  const buttonText = isLogin ? "Login with GitHub" : "Sign up with GitHub"
+  const loadingText = isLogin ? "Signing in..." : "Creating account..."
+  const linkText = isLogin ? "Don't have an account?" : "Already have an account?"
+  const linkLabel = isLogin ? "Sign up" : "Sign in"
+  const linkHref = isLogin ? "/signup" : "/login"
+  const errorMessage = isLogin ? "GitHub login failed" : "GitHub signup failed"
+
+  const handleGitHubAuth = async () => {
     setIsLoading(true)
     setError("")
     try {
@@ -29,7 +40,7 @@ export function SignupForm({
         callbackURL: "/",
       })
     } catch {
-      setError("GitHub signup failed")
+      setError(errorMessage)
       setIsLoading(false)
     }
   }
@@ -38,10 +49,8 @@ export function SignupForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Create an account</CardTitle>
-          <CardDescription>
-            Sign up with your GitHub account
-          </CardDescription>
+          <CardTitle className="text-xl">{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid gap-6">
@@ -54,7 +63,7 @@ export function SignupForm({
               type="button"
               variant="outline"
               className="w-full"
-              onClick={handleGitHubSignup}
+              onClick={handleGitHubAuth}
               disabled={isLoading}
             >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 mr-2">
@@ -63,12 +72,12 @@ export function SignupForm({
                   fill="currentColor"
                 />
               </svg>
-              {isLoading ? "Creating account..." : "Sign up with GitHub"}
+              {isLoading ? loadingText : buttonText}
             </Button>
             <div className="text-center text-sm">
-              Already have an account?{" "}
-              <Link href="/login" className="underline underline-offset-4">
-                Sign in
+              {linkText}{" "}
+              <Link href={linkHref} className="underline underline-offset-4">
+                {linkLabel}
               </Link>
             </div>
           </div>

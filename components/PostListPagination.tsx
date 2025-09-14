@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
+import { PaginationInfo } from "@/lib/schemas";
 import {
   Pagination,
   PaginationContent,
@@ -10,12 +11,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-interface PostListPaginationProps {
-  currentPage: number;
-  totalPages: number;
-  hasNextPage: boolean;
-  hasPrevPage: boolean;
-}
+type PostListPaginationProps = Pick<PaginationInfo, 'currentPage' | 'totalPages' | 'hasNextPage' | 'hasPrevPage'>;
 
 export function PostListPagination({
   currentPage,

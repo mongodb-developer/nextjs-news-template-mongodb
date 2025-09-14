@@ -3,7 +3,7 @@ import Link from "next/link"
 import logo from "@/assets/logo.svg"
 import logoDark from "@/assets/logo-dark.svg"
 
-import { LoginForm } from "@/components/login-form"
+import { AuthForm } from "@/components/auth-form"
 
 export default function LoginPage() {
   return (
@@ -27,7 +27,7 @@ export default function LoginPage() {
             priority
           />
         </Link>
-        <LoginForm />
+        <AuthForm mode="login" />
       </div>
     </div>
   )
