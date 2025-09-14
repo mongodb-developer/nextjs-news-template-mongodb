@@ -20,9 +20,6 @@ export async function getAuth() {
       database: mongodbAdapter(database),
       secret: process.env.BETTER_AUTH_SECRET,
       baseURL: process.env.BETTER_AUTH_URL || process.env.NEXT_PUBLIC_AUTH_URL || "http://localhost:3000",
-      emailAndPassword: {
-        enabled: true,
-      },
       socialProviders: {
         github: {
           clientId: process.env.GITHUB_CLIENT_ID as string,
