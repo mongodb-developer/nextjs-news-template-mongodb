@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 
 interface AuthButtonProps {
-  className: string;
+  className?: string;
 }
 
 export function AuthButton({ className }: AuthButtonProps) {

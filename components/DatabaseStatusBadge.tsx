@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { dbConnectionStatus } from "@/db/connection-status";
+import { dbConnectionStatus } from "@/lib/connection-status";
 
 export async function DatabaseStatusBadge() {
   const dbStatus = await dbConnectionStatus();
