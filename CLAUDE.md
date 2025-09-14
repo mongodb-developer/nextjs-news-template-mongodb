@@ -39,7 +39,7 @@ The project uses Better Auth with MongoDB adapter:
 - **Client interactions**: `components/PostItem.tsx` - Optimistic voting with `useOptimistic` hook
 - **Form handling**: `components/PostSubmissionForm.tsx` - React Hook Form with Zod validation
 - **Server actions**: `lib/actions.ts` - Server actions for post submission and voting
-- **API routes**: `app/api/posts/route.ts` - REST API for posts with pagination
+- **Data fetching**: `lib/posts.ts` - Cached server functions with `unstable_cache` and tag-based revalidation
 - **Pagination**: `components/PostListPagination.tsx` - Client-side pagination with URL state
 
 ### Modern React Patterns
