@@ -24,7 +24,7 @@ export function PostItem({ post }: PostItemProps) {
 
   const [optimisticVote, addOptimisticVote] = useOptimistic(
     initialVoteData,
-    (state: OptimisticVote, newVote: OptimisticVote) => newVote
+    (_state, newVote: OptimisticVote) => newVote
   );
 
   const handleVote = () => {
@@ -40,7 +40,6 @@ export function PostItem({ post }: PostItemProps) {
     const pointChange = currentlyVoted ? -1 : 1;
 
     startTransition(async () => {
-      // Add optimistic update inside the transition
       addOptimisticVote({
         points: optimisticVote.points + pointChange,
         hasVoted: !currentlyVoted

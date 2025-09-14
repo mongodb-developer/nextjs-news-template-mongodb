@@ -9,10 +9,7 @@ interface PostSectionProps {
 export function PostSection({ currentPage }: PostSectionProps) {
   return (
     <>
-      {/* Post Submission Form - Only show for logged in users */}
       <PostSubmissionFormWrapper />
-
-      {/* Post List */}
       <div className="mt-8">
         <Suspense fallback={
           <div className="text-center py-8 text-gray-400">

@@ -11,9 +11,9 @@ import { AuthButton } from "@/components/AuthButton";
 import { PostSection } from "@/components/PostSection";
 
 const DATA = {
-  title: "Next.js with MongoDB",
+  title: "Next.js with MongoDB and Better Auth",
   description:
-    "A minimal template for building full-stack React applications using Next.js, Vercel, and MongoDB.",
+    "A minimal template for building full-stack React applications using Next.js, Vercel, MongoDB, and Better Auth.",
   buttons: {
     primary: {
       className: "rounded-full bg-[#00ED64] px-5 py-2.5 font-semibold tracking-tight text-[#001E2B] transition-colors duration-200 hover:bg-[#00684A] hover:text-[#FFFFFF] lg:px-7 lg:py-3"

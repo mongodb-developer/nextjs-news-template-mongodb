@@ -4,8 +4,8 @@ import { inter } from "./fonts";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
-  title: "Next.js + MongoDB",
-  description: "Use MongoDB with Next.js",
+  title: "Next.js + MongoDB + Better Auth",
+  description: "Use MongoDB with Next.js and Better Auth for authentication",
 };
 
 export default function RootLayout({
