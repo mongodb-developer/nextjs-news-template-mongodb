@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card"
 import { authClient } from "@/lib/auth-client"
 import { useState } from "react"
+import Link from "next/link"
 
 export function LoginForm({
   className,
@@ -64,6 +65,12 @@ export function LoginForm({
               </svg>
               {isLoading ? "Signing in..." : "Login with GitHub"}
             </Button>
+            <div className="text-center text-sm">
+              Don&apos;t have an account?{" "}
+              <Link href="/signup" className="underline underline-offset-4">
+                Sign up
+              </Link>
+            </div>
           </div>
         </CardContent>
       </Card>

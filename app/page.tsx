@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { DatabaseStatusBadge } from "@/components/DatabaseStatusBadge";
 import { AuthButton } from "@/components/AuthButton";
 import { PostSection } from "@/components/PostSection";
-import { getServerSession } from "@/components/SessionProvider";
 
 const DATA = {
   title: "Next.js with MongoDB",
@@ -52,7 +51,6 @@ interface HomeProps {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const session = await getServerSession();
   const resolvedSearchParams = await searchParams;
   const currentPage = parseInt(resolvedSearchParams.page || '1', 10);
 
@@ -114,7 +112,7 @@ export default async function Home({ searchParams }: HomeProps) {
               </Button>
             </div>
 
-            <PostSection hasUser={!!session?.user} currentPage={currentPage} />
+            <PostSection currentPage={currentPage} />
           </main>
           <footer className="flex flex-col sm:flex-row items-start justify-between gap-4 border-t border-[#023430] mt-4 py-5 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
             <div className="text-sm text-[#61646B] dark:text-[#94979E] flex-1">

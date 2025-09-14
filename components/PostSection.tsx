@@ -1,21 +1,16 @@
-import { PostSubmissionForm } from "./PostSubmissionForm";
+import { PostSubmissionFormWrapper } from "./PostSubmissionFormWrapper";
 import { PostListServer } from "./PostListServer";
 import { Suspense } from "react";
 
 interface PostSectionProps {
-  hasUser: boolean;
   currentPage: number;
 }
 
-export function PostSection({ hasUser, currentPage }: PostSectionProps) {
+export function PostSection({ currentPage }: PostSectionProps) {
   return (
     <>
       {/* Post Submission Form - Only show for logged in users */}
-      {hasUser && (
-        <div className="mt-12">
-          <PostSubmissionForm />
-        </div>
-      )}
+      <PostSubmissionFormWrapper />
 
       {/* Post List */}
       <div className="mt-8">

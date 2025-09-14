@@ -22,10 +22,10 @@ This is a Next.js template for building full-stack applications with MongoDB and
 
 ### Authentication System
 The project uses Better Auth with MongoDB adapter:
-- **Server-side config**: `lib/auth.ts` - Contains the main auth instance with GitHub OAuth and email/password providers
+- **Server-side config**: `lib/auth.ts` - Contains the main auth instance with GitHub OAuth provider
 - **Client-side**: `lib/auth-client.ts` - React client for authentication methods
 - **API routes**: `app/api/auth/[...all]/route.ts` - Handles all auth endpoints via Better Auth's Next.js handler
-- **Session provider**: `components/SessionProvider.tsx` - Server-side session utility
+- **Form wrapper**: `components/PostSubmissionFormWrapper.tsx` - Client component for reactive authentication state
 
 ### Database Layer
 - **Connection**: `lib/mongodb.ts` - MongoDB client with development/production connection handling
@@ -63,7 +63,7 @@ Required variables (see `.env.example`):
 - `MONGODB_URI` - MongoDB Atlas connection string
 - `BETTER_AUTH_SECRET` - Secure secret key (minimum 32 characters)
 - `BETTER_AUTH_URL` - Base URL for auth (http://localhost:3000 for dev)
-- `GITHUB_CLIENT_ID` & `GITHUB_CLIENT_SECRET` - GitHub OAuth credentials
+- `GITHUB_CLIENT_ID` & `GITHUB_CLIENT_SECRET` - GitHub OAuth credentials (required for authentication)
 
 Optional:
 - `MONGODB_DB` - Database name (defaults to "better-auth")
@@ -71,11 +71,11 @@ Optional:
 ## Features
 
 ### Authentication Features
-- Email/password authentication with secure forms
 - GitHub OAuth integration with proper error handling
 - MongoDB session storage with automatic cleanup
 - Async auth instance initialization to handle database connections
-- Login/signup pages with form validation
+- Login/signup pages with GitHub authentication
+- Reactive authentication state with immediate UI updates
 
 ### Application Features
 - Hacker News-style post submission system
