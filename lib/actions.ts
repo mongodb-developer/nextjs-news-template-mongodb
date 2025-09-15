@@ -9,8 +9,8 @@ import { ObjectId } from "mongodb";
 
 export async function submitPost(formData: FormData): Promise<SubmitPostResult> {
   try {
-    const authInstance = await getAuth();
-    const session = await authInstance.api.getSession({
+    const auth = await getAuth();
+    const session = await auth.api.getSession({
       headers: await headers(),
     });
 
@@ -60,8 +60,8 @@ export async function submitPost(formData: FormData): Promise<SubmitPostResult> 
 
 export async function voteOnPost(postId: string): Promise<VoteResult> {
   try {
-    const authInstance = await getAuth();
-    const session = await authInstance.api.getSession({
+    const auth = await getAuth();
+    const session = await auth.api.getSession({
       headers: await headers(),
     });
 
