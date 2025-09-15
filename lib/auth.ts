@@ -42,5 +42,3 @@ export async function getAuth() {
   return authInstance;
 }
 
-// export a promise that resolves to the auth instance
-export const auth = getAuth();

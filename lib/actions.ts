@@ -3,13 +3,13 @@
 import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
 import { getDatabase } from "@/lib/mongodb";
-import { auth } from "@/lib/auth";
+import { getAuth } from "@/lib/auth";
 import { PostSubmissionSchema, SubmitPostResult, VoteResult, User } from "@/lib/schemas";
 import { ObjectId } from "mongodb";
 
 export async function submitPost(formData: FormData): Promise<SubmitPostResult> {
   try {
-    const authInstance = await auth;
+    const authInstance = await getAuth();
     const session = await authInstance.api.getSession({
       headers: await headers(),
     });
@@ -60,7 +60,7 @@ export async function submitPost(formData: FormData): Promise<SubmitPostResult> 
 
 export async function voteOnPost(postId: string): Promise<VoteResult> {
   try {
-    const authInstance = await auth;
+    const authInstance = await getAuth();
     const session = await authInstance.api.getSession({
       headers: await headers(),
     });
