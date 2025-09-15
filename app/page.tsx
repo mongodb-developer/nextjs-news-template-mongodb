@@ -11,7 +11,7 @@ import { AuthButton } from "@/components/AuthButton";
 import { PostSection } from "@/components/PostSection";
 
 const DATA = {
-  title: "Next.js with MongoDB and Better Auth",
+  title: "Next.js with MongoDB",
   description:
     "A minimal template for building full-stack React applications using Next.js, Vercel, MongoDB, and Better Auth.",
   buttons: {
@@ -24,7 +24,7 @@ const DATA = {
   },
   link: {
     text: "Deploy Now",
-    href: "https://vercel.com/new/clone?repository-name=mongodb-nextjs&repository-url=https%3A%2F%2Fgithub.com%2Fmongodb-developer%2Fvercel-template-mongodb&project-name=mongodb-nextjs&demo-title=MongoDB%20%26%20Next.js%20Starter%20Template&demo-description=A%20minimal%20template%20for%20building%20full-stack%20React%20applications%20using%20Next.js%2C%20Vercel%2C%20and%20MongoDB.&demo-url=https%3A%2F%2Fnextjs.mongodb.com%2F&demo-image=https%3A%2F%2Fnextjs.mongodb.com%2Fog.png&integration-ids=oac_jnzmjqM10gllKmSrG0SGrHOH&from=templates",
+    href: "https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmongodb-developer%2Fnextjs-news-template-mongodb&project-name=mongodb-news-nextjs&repository-name=mongodb-news-nextjs&demo-title=MongoDB%20%26%20Next.js%20Auth%20Starter%20Template&demo-description=A%20minimal%20template%20for%20building%20full-stack%20React%20applications%20using%20Next.js%2C%20Vercel%2C%2C%20Better%20Auth%20and%20MongoDB.&demo-url=https%3A%2F%2Fnews.mongodb.com&demo-image=https%3A%2F%2Fnews.mongodb.com%2Fog.png&products=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22mongodbatlas%22%2C%22productSlug%22%3A%22atlas%22%2C%22protocol%22%3A%22storage%22%7D%5D",
   },
   footerLinks: {
     nextjs: {
@@ -33,7 +33,7 @@ const DATA = {
     },
     mongodb: {
       text: "MongoDB",
-      href: "https://www.mongodb.com"
+      href: "https://www.mongodb.com/?utm_campaign=devrel&utm_source=third-party-content&utm_medium=cta&utm_content=template-nextjs-news-mongodb&utm_term=jesse.hall"
     },
     vercel: {
       text: "Vercel",
@@ -45,7 +45,7 @@ const DATA = {
     },
     github: {
       text: "GitHub",
-      href: "https://github.com/mongodb-developer/nextjs-better-auth-template-mongodb"
+      href: "https://github.com/mongodb-developer/nextjs-news-template-mongodb"
     }
   },
 };
