@@ -11,7 +11,6 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
   throw new Error('Missing required GitHub OAuth environment variables: GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET');
 }
 
-// Create a lazy auth instance that only connects when used
 let authInstance: ReturnType<typeof betterAuth> | null = null;
 
 export async function getAuth() {
@@ -42,3 +41,4 @@ export async function getAuth() {
   }
   return authInstance;
 }
+
