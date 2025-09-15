@@ -7,6 +7,12 @@ if (!process.env.MONGODB_URI) {
 const uri = process.env.MONGODB_URI;
 const options: MongoClientOptions = {
   appName: "devrel.template.vercel-better-auth",
+  tls: true,
+  tlsAllowInvalidCertificates: false,
+  tlsAllowInvalidHostnames: false,
+  serverSelectionTimeoutMS: 10000,
+  connectTimeoutMS: 10000,
+  socketTimeoutMS: 30000,
 };
 
 let client: MongoClient;
