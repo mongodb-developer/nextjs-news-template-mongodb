@@ -37,11 +37,15 @@ const DATA = {
     },
     vercel: {
       text: "Vercel",
-      href: "https://vercel.com"
+      href: "https://vercel.com/marketplace/mongodbatlas"
+    },
+    betterAuth: {
+      text: "Better Auth",
+      href: "https://better-auth.com"
     },
     github: {
       text: "GitHub",
-      href: "https://github.com/mongodb-developer/nextjs-template-mongodb"
+      href: "https://github.com/mongodb-developer/nextjs-better-auth-template-mongodb"
     }
   },
 };
@@ -123,8 +127,15 @@ export default async function Home({ searchParams }: HomeProps) {
                 className="text-[#00ED64] hover:underline"
               >
                 {DATA.footerLinks.nextjs.text}
+              </Link>{", "}
+              <Link
+                href={DATA.footerLinks.betterAuth.href}
+                target="_blank"
+                className="text-[#00ED64] hover:underline"
+              >
+                {DATA.footerLinks.betterAuth.text}
               </Link>{" "}
-              and native{" "}
+              and the native{" "}
               <Link 
                 href={DATA.footerLinks.mongodb.href} 
                 target="_blank" 
