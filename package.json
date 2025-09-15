@@ -1,19 +1,19 @@
 {
-  "name": "nextjs-template-mongodb",
+  "name": "nextjs-news-template-mongodb",
   "version": "0.1.0",
   "private": true,
-  "description": "A Next.js template for building applications with MongoDB, featuring TypeScript and shadcn/ui / Tailwind CSS integration",
+  "description": "A Next.js template for building applications with MongoDB, featuring TypeScript, Better Auth, and shadcn/ui / Tailwind CSS integration",
   "author": {
     "name": "Jesse Hall",
     "url": "https://github.com/codeSTACKr"
   },
-  "homepage": "https://github.com/mongodb-developer/nextjs-template-mongodb#readme",
+  "homepage": "https://github.com/mongodb-developer/nextjs-news-template-mongodb#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mongodb-developer/nextjs-template-mongodb.git"
+    "url": "git+https://github.com/mongodb-developer/nextjs-news-template-mongodb.git"
   },
   "bugs": {
-    "url": "https://github.com/mongodb-developer/nextjs-template-mongodb/issues"
+    "url": "https://github.com/mongodb-developer/nextjs-news-template-mongodb/issues"
   },
   "keywords": [
     "nextjs",
@@ -22,7 +22,11 @@
     "tailwindcss",
     "vercel",
     "template",
-    "shadcn"
+    "shadcn",
+    "better-auth",
+    "react",
+    "react-hook-form",
+    "zod"
   ],
   "scripts": {
     "dev": "next dev --turbopack",
