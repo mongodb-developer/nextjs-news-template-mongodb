@@ -4,7 +4,7 @@ import { revalidateTag } from "next/cache";
 import { headers } from "next/headers";
 import { getDatabase } from "@/lib/mongodb";
 import { auth } from "@/lib/auth";
-import { PostSubmissionSchema, SubmitPostResult, VoteResult } from "@/lib/schemas";
+import { PostSubmissionSchema, SubmitPostResult, VoteResult, User } from "@/lib/schemas";
 import { ObjectId } from "mongodb";
 
 export async function submitPost(formData: FormData): Promise<SubmitPostResult> {
@@ -32,12 +32,16 @@ export async function submitPost(formData: FormData): Promise<SubmitPostResult> 
       throw new Error("This URL has already been submitted");
     }
 
+    // Get GitHub username from user profile
+    const githubUsername = (session.user as User).githubUsername;
+
     const newPost = {
       title: validatedData.title,
       url: validatedData.url,
       points: 1,
       submittedById: session.user.id,
-      submittedByName: session.user.name || "Anonymous User",
+      submittedByName: session.user.name,
+      submittedByGithubUsername: githubUsername,
       submittedAt: new Date(),
       votes: [session.user.id]
     };

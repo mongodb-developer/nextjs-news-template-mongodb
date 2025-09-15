@@ -81,14 +81,18 @@ export function PostItem({ post }: PostItemProps) {
         <div className="flex items-start gap-2">
           <h3 className="font-medium text-white leading-tight">
             {post.url ? (
-              <a
-                href={post.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#00ED64] transition-colors"
-              >
-                {post.title} ({new URL(post.url).hostname})
-              </a>
+              <>
+                {post.title} (
+                <a
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#00ED64] transition-colors"
+                >
+                  {new URL(post.url).hostname}
+                </a>
+                )
+              </>
             ) : (
               post.title
             )}
@@ -98,7 +102,14 @@ export function PostItem({ post }: PostItemProps) {
         <div className="mt-1 text-xs text-gray-500 space-x-2">
           <span>{optimisticVote.points} {optimisticVote.points === 1 ? 'point' : 'points'}</span>
           <span>•</span>
-          <span>by {post.submittedByName}</span>
+          <span>by <a
+            href={`https://github.com/${post.submittedByGithubUsername}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-[#00ED64] transition-colors"
+          >
+            {post.submittedByName}
+          </a></span>
           <span>•</span>
           <span>{getTimeAgo(post.submittedAt)}</span>
         </div>
