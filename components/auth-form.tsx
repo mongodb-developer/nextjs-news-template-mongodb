@@ -12,7 +12,7 @@ import {
 import { authClient } from "@/lib/auth-client"
 import { useState } from "react"
 import Link from "next/link"
-import { toast } from "sonner"
+import { checkGitHubConfig, showGitHubConfigError } from "@/lib/github-config"
 
 interface AuthFormProps extends React.ComponentPropsWithoutRef<"div"> {
   mode: "login" | "signup"
@@ -38,14 +38,10 @@ export function AuthForm({ mode, className, ...props }: AuthFormProps) {
 
     try {
       // Check if GitHub OAuth credentials are configured
-      const response = await fetch('/api/auth/check-github-config')
-      const { isConfigured } = await response.json()
+      const isConfigured = await checkGitHubConfig()
 
       if (!isConfigured) {
-        toast.error("GitHub OAuth Not Configured", {
-          description: "Please set up GitHub OAuth credentials. Go to GitHub Developer Settings, create a new OAuth App, and set the Authorization callback URL to: http://localhost:3000/api/auth/callback/github. Then copy the Client ID and Client Secret to your .env file.",
-          duration: 8000,
-        })
+        showGitHubConfigError()
         setIsLoading(false)
         return
       }

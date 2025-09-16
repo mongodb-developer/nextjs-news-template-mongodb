@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
+import { checkGitHubConfig, showGitHubConfigError } from "@/lib/github-config";
+import { useRouter } from "next/navigation";
 
 interface AuthButtonProps {
   className?: string;
@@ -10,9 +11,19 @@ interface AuthButtonProps {
 
 export function AuthButton({ className }: AuthButtonProps) {
   const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
 
   const handleLogout = async () => {
     await authClient.signOut();
+  };
+
+  const handleLoginClick = async () => {
+    const isConfigured = await checkGitHubConfig();
+    if (!isConfigured) {
+      showGitHubConfigError();
+      return;
+    }
+    router.push("/login");
   };
 
   if (isPending) {
@@ -32,8 +43,8 @@ export function AuthButton({ className }: AuthButtonProps) {
   }
 
   return (
-    <Button asChild className={className}>
-      <Link href="/login">Log in to post</Link>
+    <Button onClick={handleLoginClick} className={className}>
+      Log in to post
     </Button>
   );
 }
