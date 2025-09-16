@@ -64,14 +64,14 @@ export function PostItem({ post }: PostItemProps) {
           disabled={isPending}
           className={`transition-colors disabled:opacity-50 ${
             optimisticVote.hasVoted
-              ? "text-[#00ED64]"
-              : "text-gray-400 hover:text-[#00ED64]"
+              ? "text-[#00684A] dark:text-[#00ED64]"
+              : "text-gray-400 hover:text-[#00684A] dark:text-gray-400 dark:hover:text-[#00ED64]"
           }`}
           aria-label={optimisticVote.hasVoted ? "Remove upvote" : "Upvote"}
         >
           <Triangle className="h-4 w-4 rotate-0" fill="currentColor" />
         </button>
-        <span className="text-sm font-mono text-gray-300 min-w-[20px] text-center">
+        <span className="text-sm font-mono text-gray-600 dark:text-gray-300 min-w-[20px] text-center">
           {optimisticVote.points}
         </span>
       </div>
@@ -79,7 +79,7 @@ export function PostItem({ post }: PostItemProps) {
       {/* Post content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-start gap-2">
-          <h3 className="font-medium text-white leading-tight">
+          <h3 className="font-medium text-gray-900 dark:text-white leading-tight">
             {post.url ? (
               <>
                 {post.title} (
@@ -87,7 +87,7 @@ export function PostItem({ post }: PostItemProps) {
                   href={post.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#00ED64] transition-colors"
+                  className="hover:text-[#00684A] dark:hover:text-[#00ED64] transition-colors"
                 >
                   {new URL(post.url).hostname}
                 </a>
@@ -99,14 +99,14 @@ export function PostItem({ post }: PostItemProps) {
           </h3>
         </div>
 
-        <div className="mt-1 text-xs text-gray-500 space-x-2">
+        <div className="mt-1 text-xs text-gray-600 dark:text-gray-400 space-x-2">
           <span>{optimisticVote.points} {optimisticVote.points === 1 ? 'point' : 'points'}</span>
           <span>•</span>
           <span>by <a
             href={`https://github.com/${post.submittedByGithubUsername}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-[#00ED64] transition-colors"
+            className="hover:text-[#00684A] dark:hover:text-[#00ED64] transition-colors"
           >
             {post.submittedByName}
           </a></span>

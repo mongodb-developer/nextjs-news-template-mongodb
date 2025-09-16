@@ -44,7 +44,7 @@ export function PostSubmissionForm() {
   };
 
   return (
-    <div className="border border-[#023430] rounded-lg p-6 bg-background">
+    <div className="border border-gray-200 dark:border-[#023430] rounded-lg p-6 bg-background">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
           <FormField
@@ -52,12 +52,12 @@ export function PostSubmissionForm() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-medium">Title</FormLabel>
+                <FormLabel className="text-sm font-medium text-gray-900 dark:text-white">Title</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="title..."
                     {...field}
-                    className="bg-[#1a1a1a] border-[#333] text-white placeholder:text-gray-500"
+                    className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#333] text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   />
                 </FormControl>
                 <FormMessage />
@@ -69,12 +69,12 @@ export function PostSubmissionForm() {
             name="url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-sm font-medium">URL</FormLabel>
+                <FormLabel className="text-sm font-medium text-gray-900 dark:text-white">URL</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="url..."
                     {...field}
-                    className="bg-[#1a1a1a] border-[#333] text-white placeholder:text-gray-500"
+                    className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#333] text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   />
                 </FormControl>
                 <FormMessage />

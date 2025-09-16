@@ -124,14 +124,14 @@ export default async function Home({ searchParams }: HomeProps) {
               <Link 
                 href={DATA.footerLinks.nextjs.href} 
                 target="_blank" 
-                className="text-[#00ED64] hover:underline"
+                className="text-[#00684A] dark:text-[#00ED64] hover:underline"
               >
                 {DATA.footerLinks.nextjs.text}
               </Link>{", "}
               <Link
                 href={DATA.footerLinks.betterAuth.href}
                 target="_blank"
-                className="text-[#00ED64] hover:underline"
+                className="text-[#00684A] dark:text-[#00ED64] hover:underline"
               >
                 {DATA.footerLinks.betterAuth.text}
               </Link>{" "}
@@ -139,7 +139,7 @@ export default async function Home({ searchParams }: HomeProps) {
               <Link 
                 href={DATA.footerLinks.mongodb.href} 
                 target="_blank" 
-                className="text-[#00ED64] hover:underline"
+                className="text-[#00684A] dark:text-[#00ED64] hover:underline"
               >
                 {DATA.footerLinks.mongodb.text}
               </Link>{" "}
@@ -147,7 +147,7 @@ export default async function Home({ searchParams }: HomeProps) {
               <Link 
                 href={DATA.footerLinks.vercel.href} 
                 target="_blank" 
-                className="text-[#00ED64] hover:underline"
+                className="text-[#00684A] dark:text-[#00ED64] hover:underline"
               >
                 {DATA.footerLinks.vercel.text}
               </Link>
@@ -155,7 +155,7 @@ export default async function Home({ searchParams }: HomeProps) {
               <Link 
                 href={DATA.footerLinks.github.href} 
                 target="_blank" 
-                className="text-[#00ED64] hover:underline"
+                className="text-[#00684A] dark:text-[#00ED64] hover:underline"
               >
                 {DATA.footerLinks.github.text}
               </Link>
