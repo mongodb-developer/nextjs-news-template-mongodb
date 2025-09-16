@@ -2,6 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { PostSubmissionSchema, type PostSubmission } from "@/lib/schemas";
 import { toast } from "sonner";
 import {
@@ -14,9 +15,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { submitPost } from "@/lib/actions";
+import { authClient } from "@/lib/auth-client";
 
 export function PostSubmissionForm() {
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
   const form = useForm<PostSubmission>({
     resolver: zodResolver(PostSubmissionSchema),
     defaultValues: {
@@ -28,6 +33,12 @@ export function PostSubmissionForm() {
   const { formState: { isSubmitting } } = form;
 
   const handleSubmit = async (data: PostSubmission) => {
+    // Redirect to login if user is not authenticated
+    if (!session?.user) {
+      router.push("/login");
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append("title", data.title);
@@ -44,20 +55,21 @@ export function PostSubmissionForm() {
   };
 
   return (
-    <div className="border border-gray-200 dark:border-[#023430] rounded-lg p-6 bg-gray-50 dark:bg-background">
+    <div className="border border-gray-200 dark:border-[#023430] rounded-lg p-3 bg-gray-50 dark:bg-background">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col w-full items-end gap-3">
           <FormField
             control={form.control}
             name="title"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm font-medium text-gray-900 dark:text-white">Title</FormLabel>
-                <FormControl>
+              <FormItem className="w-full space-y-0">
+                <FormLabel className="sr-only">Title</FormLabel>
+                <FormControl className="w-full">
                   <Input
-                    placeholder="title..."
+                    placeholder="Title*"
+                    aria-label="Title"
                     {...field}
-                    className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#333] text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                    className="w-full shadow-none bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#333] text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   />
                 </FormControl>
                 <FormMessage />
@@ -68,13 +80,14 @@ export function PostSubmissionForm() {
             control={form.control}
             name="url"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-sm font-medium text-gray-900 dark:text-white">URL</FormLabel>
-                <FormControl>
+              <FormItem className="w-full space-y-0">
+                <FormLabel className="sr-only">URL</FormLabel>
+                <FormControl className="w-full">
                   <Input
-                    placeholder="url..."
+                    placeholder="Link URL*"
+                    aria-label="URL"
                     {...field}
-                    className="bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#333] text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500"
+                    className="w-full bg-white dark:bg-[#1a1a1a] border-gray-300 dark:border-[#333] text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 shadow-none"
                   />
                 </FormControl>
                 <FormMessage />
@@ -84,9 +97,10 @@ export function PostSubmissionForm() {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="bg-[#00ED64] text-[#001E2B] hover:bg-[#00684A] hover:text-white font-semibold"
+            className="bg-[#00ED64] w-fit text-[#001E2B] transition-colors duration-200 hover:bg-[#58C860] font-semibold flex items-center gap-2 shadow-none"
           >
-            {isSubmitting ? "Submitting..." : "Submit"}
+            {isSubmitting && <Spinner size="sm" />}
+            Submit
           </Button>
         </form>
       </Form>

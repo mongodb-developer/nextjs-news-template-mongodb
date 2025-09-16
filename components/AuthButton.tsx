@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
 import { checkGitHubConfig, showGitHubConfigError } from "@/lib/github-config";
 import { useRouter } from "next/navigation";
@@ -28,8 +29,9 @@ export function AuthButton({ className }: AuthButtonProps) {
 
   if (isPending) {
     return (
-      <Button disabled className={className}>
-        Loading...
+      <Button disabled className={`${className} flex items-center gap-2`}>
+        <Spinner size="sm" />
+        Log in to post
       </Button>
     );
   }
