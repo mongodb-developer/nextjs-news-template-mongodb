@@ -44,7 +44,7 @@ export function PostSubmissionForm() {
   };
 
   return (
-    <div className="border border-gray-200 dark:border-[#023430] rounded-lg p-6 bg-background">
+    <div className="border border-gray-200 dark:border-[#023430] rounded-lg p-6 bg-gray-50 dark:bg-background">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
           <FormField
