@@ -21,7 +21,7 @@ export const PostSubmissionSchema = z.object({
 export const PostSchema = z.object({
   _id: z.string().optional(),
   title: z.string(),
-  url: z.string().optional(),
+  url: z.string(),
   points: z.number().default(1),
   submittedById: z.string(),
   submittedByName: z.string(),

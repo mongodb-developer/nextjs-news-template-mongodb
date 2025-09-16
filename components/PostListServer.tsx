@@ -19,18 +19,11 @@ export async function PostListServer({ page = 1 }: PostListServerProps) {
 
   return (
     <div className="space-y-4">
-      <div className="space-y-1">
+      <div className="flex flex-col gap-5">
         {posts.map((post, index) => {
           const globalIndex = (page - 1) * 10 + index + 1;
           return (
-            <div key={post._id} className="flex items-start gap-2">
-              <span className="text-gray-400 text-sm font-mono w-6 text-right mt-2">
-                {globalIndex}.
-              </span>
-              <div className="flex-1">
-                <PostItem post={post} />
-              </div>
-            </div>
+            <PostItem key={post._id} post={post} globalIndex={globalIndex} />
           );
         })}
       </div>

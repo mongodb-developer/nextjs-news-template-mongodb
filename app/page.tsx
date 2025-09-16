@@ -13,18 +13,18 @@ import { PostSection } from "@/components/PostSection";
 const DATA = {
   title: "Next.js with MongoDB",
   description:
-    "A minimal template for building full-stack React applications using Next.js, Vercel, MongoDB, and Better Auth.",
+    "A full-stack React template with Next.js, Vercel, and MongoDB. Ships with forum and auth, or strip it all out.",
   buttons: {
     primary: {
-      className: "rounded-full bg-[#00ED64] px-5 py-2.5 font-semibold tracking-tight text-[#001E2B] transition-colors duration-200 hover:bg-[#00684A] hover:text-[#FFFFFF] lg:px-7 lg:py-3"
+      className: "rounded-full bg-[#00ED64] px-5 py-2.5 font-semibold tracking-tight text-[#001E2B] transition-colors duration-200 hover:bg-[#58C860] lg:px-7 lg:py-3"
     },
     ghost: {
-      className: "group flex items-center gap-2 leading-none tracking-tight"
+      className: "group flex items-center gap-2 leading-none tracking-tight dark:hover:bg-white/10 hover:bg-black/5 dark:hover:text-white hover:text-black"
     }
   },
   link: {
-    text: "Deploy Now",
-    href: "https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmongodb-developer%2Fnextjs-news-template-mongodb&project-name=mongodb-news-nextjs&repository-name=mongodb-news-nextjs&demo-title=MongoDB%20%26%20Next.js%20Auth%20Starter%20Template&demo-description=A%20minimal%20template%20for%20building%20full-stack%20React%20applications%20using%20Next.js%2C%20Vercel%2C%2C%20Better%20Auth%20and%20MongoDB.&demo-url=https%3A%2F%2Fnews.mongodb.com&demo-image=https%3A%2F%2Fnews.mongodb.com%2Fog.png&products=%5B%7B%22type%22%3A%22integration%22%2C%22integrationSlug%22%3A%22mongodbatlas%22%2C%22productSlug%22%3A%22atlas%22%2C%22protocol%22%3A%22storage%22%7D%5D&env=BETTER_AUTH_SECRET&envDescription=Generate%20a%20random%20secret%20by%20clicking%20here%20%E2%86%92%20&envLink=https%3A%2F%2Fgenerate-secret.vercel.app%2F32",
+    text: "View on Github",
+    href: "https://github.com/mongodb-developer/nextjs-news-template-mongodb",
   },
   footerLinks: {
     nextjs: {
@@ -59,12 +59,12 @@ export default async function Home({ searchParams }: HomeProps) {
   const currentPage = parseInt(resolvedSearchParams.page || '1', 10);
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <div className="mx-auto flex w-full max-w-md flex-1 flex-col p-8 px-5 md:max-w-lg md:px-0 lg:max-w-xl">
+    <div className="flex min-h-screen flex-col justify-center">
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col p-8 px-5 md:max-w-lg md:px-0 lg:max-w-xl max-h-[1000px]">
           <main className="flex flex-1 flex-col">
-            <div className="flex gap-6 lg:gap-8 items-center mb-6 md:mb-7">
+            <div className="flex gap-6 lg:gap-5 items-center mb-5">
               <Image
-                className="lg:h-8 lg:w-auto dark:hidden"
+                className="lg:h-7 lg:w-auto dark:hidden"
                 src={logo}
                 alt="MongoDB logo"
                 width={88}
@@ -72,7 +72,7 @@ export default async function Home({ searchParams }: HomeProps) {
                 priority
               />
               <Image
-                className="hidden lg:h-8 lg:w-auto dark:block"
+                className="hidden lg:h-7 lg:w-auto dark:block"
                 src={logoDark}
                 alt="MongoDB logo"
                 width={88}
@@ -80,29 +80,29 @@ export default async function Home({ searchParams }: HomeProps) {
                 priority
               />
               <Image
-                className="lg:h-6 lg:w-auto dark:hidden"
+                className="lg:h-5 lg:w-auto dark:hidden"
                 src={vercelLogotypeLight}
-                alt="MongoDB logo"
+                alt="Vercel logo"
                 width={88}
                 height={24}
                 priority
               />
               <Image
-                className="hidden lg:h-6 lg:w-auto dark:block"
+                className="hidden lg:h-5 lg:w-auto dark:block"
                 src={vercelLogotypeDark}
-                alt="MongoDB logo"
+                alt="Vercel logo"
                 width={88}
                 height={24}
                 priority
               />
             </div>
-            <h1 className="text-3xl font-semibold leading-none tracking-tighter md:text-4xl md:leading-none lg:text-5xl lg:leading-none">
+            <h1 className="text-3xl font-semibold leading-none tracking-tighter md:text-4xl md:leading-none">
               {DATA.title}
             </h1>
             <p className="mt-3.5 max-w-lg text-base leading-snug tracking-tight text-[#61646B] md:text-lg md:leading-snug lg:text-xl lg:leading-snug dark:text-[#94979E]">
               {DATA.description}
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-5 md:mt-9 lg:mt-10">
+            <div className="flex flex-wrap items-center gap-4 mt-5">
               <AuthButton className={DATA.buttons.primary.className} />
               <Button
                 variant="ghost"
@@ -118,7 +118,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
             <PostSection currentPage={currentPage} />
           </main>
-          <footer className="flex flex-col sm:flex-row items-start justify-between gap-4 border-t border-[#023430] mt-4 py-5 sm:gap-6 md:pb-12 md:pt-10 dark:border-[#023430]">
+          <footer className="flex flex-col sm:flex-row items-start justify-between gap-4 border-t border-[#023430] mt-4 py-5 sm:gap-6 md:pt-10 dark:border-[#023430]">
             <div className="text-sm text-[#61646B] dark:text-[#94979E] flex-1">
               Built with{" "}
               <Link 
