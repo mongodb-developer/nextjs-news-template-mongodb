@@ -111,9 +111,7 @@ export function PostItem({ post, globalIndex }: PostItemProps) {
           <span>
             {" "}
             by{" "}
-            <span className="hover:text-[#00684A] dark:hover:text-[#00ED64] transition-colors">
-              {post.submittedByName}
-            </span>
+            {post.submittedByName}
           </span>
           <span> {getTimeAgo(post.submittedAt)}</span>
         </div>
