@@ -15,7 +15,9 @@ export async function getAuth() {
     authInstance = betterAuth({
       database: mongodbAdapter(database),
       secret: process.env.BETTER_AUTH_SECRET,
-      baseURL: process.env.BETTER_AUTH_URL || process.env.VERCEL_URL || "http://localhost:3000",
+      baseURL: process.env.BETTER_AUTH_URL ||
+               (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null) ||
+               "http://localhost:3000",
       emailAndPassword: {
         enabled: true,
         minPasswordLength: 8,

@@ -2,14 +2,24 @@ import { createAuthClient } from "better-auth/react";
 
 // Get the base URL for the client
 const getClientBaseURL = () => {
-  if (typeof window !== "undefined") {
-    // Client-side: use current origin
-    return window.location.origin;
+  // In development, use localhost
+  if (process.env.NODE_ENV === "development") {
+    return "http://localhost:3000";
   }
 
-  // Server-side: use environment variables
-  if (process.env.NODE_ENV === "production") {
-    return process.env.BETTER_AUTH_URL || `https://${process.env.VERCEL_URL}` || "http://localhost:3000";
+  // In production, use BETTER_AUTH_URL if set, otherwise use Vercel's auto URL
+  if (process.env.BETTER_AUTH_URL) {
+    return process.env.BETTER_AUTH_URL;
+  }
+
+  // Use Vercel's automatically provided URL (includes protocol for Next.js)
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  }
+
+  // Fallback for client-side
+  if (typeof window !== "undefined") {
+    return window.location.origin;
   }
 
   return "http://localhost:3000";
