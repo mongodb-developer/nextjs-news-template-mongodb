@@ -87,20 +87,18 @@ export function PostItem({ post, globalIndex }: PostItemProps) {
 
       {/* Post content */}
       <div className="flex flex-col min-w-0 gap-2">
-        <div className="flex items-start">
-          <div className="flex flex-row items-baseline gap-[6px]">
-            <h3 className="font-medium text-gray-900 dark:text-white leading-none">
-              {post.title}
-            </h3>
-            <a
-              href={post.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs leading-none text-gray-600 dark:text-gray-400 hover:text-[#00684A] dark:hover:text-[#00ED64] transition-colors"
-            >
-              ({new URL(post.url).hostname})
-            </a>
-          </div>
+        <div>
+          <h3 className="font-medium text-gray-900 dark:text-white leading-none inline">
+            {post.title}
+          </h3>
+          <a
+            href={post.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs leading-none text-gray-600 ml-2 dark:text-gray-400 hover:text-[#00684A] dark:hover:text-[#00ED64] transition-colors"
+          >
+            ({new URL(post.url).hostname})
+          </a>
         </div>
 
         <div className="text-xs leading-none text-gray-600 dark:text-gray-400">
