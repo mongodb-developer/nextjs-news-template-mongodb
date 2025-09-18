@@ -1,3 +1,4 @@
+import { attachDatabasePool } from '@vercel/functions';
 import { MongoClient, MongoClientOptions } from "mongodb";
 
 if (!process.env.MONGODB_URI) {
@@ -27,6 +28,10 @@ if (process.env.NODE_ENV === "development") {
 } else {
   // In production mode, it's best to not use a global variable.
   client = new MongoClient(uri, options);
+
+  // Attach the client to ensure proper cleanup on function suspension
+  attachDatabasePool(client);
+
   clientPromise = client.connect();
 }
 
