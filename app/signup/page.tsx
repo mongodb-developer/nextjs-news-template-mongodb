@@ -4,12 +4,10 @@ import logo from "@/assets/logo.svg"
 import logoDark from "@/assets/logo-dark.svg"
 
 import { AuthForm } from "@/components/auth-form"
-import { GitHubConfigChecker } from "@/components/GitHubConfigChecker"
 
 export default function SignupPage() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
-      <GitHubConfigChecker />
       <div className="flex w-full max-w-sm flex-col gap-6">
         <Link href="/" className="flex items-center gap-2 self-center font-medium">
           <Image

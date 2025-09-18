@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Next.js template for building full-stack applications with MongoDB and Better Auth for authentication. The project demonstrates modern React patterns including Suspense, optimistic updates, server actions, server components, client components, API routes, shadcn/ui integration, and Zod validation. It features a Hacker News-style post submission and voting system and is optimized for deployment on Vercel.
+This is a Next.js template for building full-stack applications with MongoDB and Better Auth for email/password authentication. The project demonstrates modern React patterns including Suspense, optimistic updates, server actions, server components, client components, API routes, shadcn/ui integration, and Zod validation. It features a Hacker News-style post submission and voting system and is optimized for deployment on Vercel.
 
 ## Common Commands
 
@@ -22,7 +22,7 @@ This is a Next.js template for building full-stack applications with MongoDB and
 
 ### Authentication System
 The project uses Better Auth with MongoDB adapter:
-- **Server-side config**: `lib/auth.ts` - Contains the main auth instance with GitHub OAuth provider
+- **Server-side config**: `lib/auth.ts` - Contains the main auth instance with email/password authentication
 - **Client-side**: `lib/auth-client.ts` - React client for authentication methods
 - **API routes**: `app/api/auth/[...all]/route.ts` - Handles all auth endpoints via Better Auth's Next.js handler
 - **Form wrapper**: `components/PostSubmissionFormWrapper.tsx` - Client component for reactive authentication state
@@ -63,7 +63,6 @@ Required variables (see `.env.example`):
 - `MONGODB_URI` - MongoDB Atlas connection string
 - `BETTER_AUTH_SECRET` - Secure secret key (minimum 32 characters)
 - `BETTER_AUTH_URL` - Base URL for auth (http://localhost:3000 for dev)
-- `GITHUB_CLIENT_ID` & `GITHUB_CLIENT_SECRET` - GitHub OAuth credentials (required for authentication)
 
 Optional:
 - `MONGODB_DB` - Database name (defaults to "better-auth")
@@ -71,10 +70,11 @@ Optional:
 ## Features
 
 ### Authentication Features
-- GitHub OAuth integration with proper error handling
+- Email/password authentication with proper error handling
 - MongoDB session storage with automatic cleanup
 - Async auth instance initialization to handle database connections
-- Login/signup pages with GitHub authentication
+- Login/signup pages with email/password forms
+- Form validation with minimum password requirements
 - Reactive authentication state with immediate UI updates
 
 ### Application Features

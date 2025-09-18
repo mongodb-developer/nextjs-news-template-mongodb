@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { authClient } from "@/lib/auth-client";
-import { checkGitHubConfig, showGitHubConfigError } from "@/lib/github-config";
 import { useRouter } from "next/navigation";
 
 interface AuthButtonProps {
@@ -18,12 +17,7 @@ export function AuthButton({ className }: AuthButtonProps) {
     await authClient.signOut();
   };
 
-  const handleLoginClick = async () => {
-    const isConfigured = await checkGitHubConfig();
-    if (!isConfigured) {
-      showGitHubConfigError();
-      return;
-    }
+  const handleLoginClick = () => {
     router.push("/login");
   };
 

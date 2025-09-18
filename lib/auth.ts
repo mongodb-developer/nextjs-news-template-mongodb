@@ -16,22 +16,10 @@ export async function getAuth() {
       database: mongodbAdapter(database),
       secret: process.env.BETTER_AUTH_SECRET,
       baseURL: process.env.BETTER_AUTH_URL || process.env.VERCEL_URL || "http://localhost:3000",
-      user: {
-        additionalFields: {
-          githubUsername: {
-            type: "string",
-            required: false,
-          }
-        }
-      },
-      socialProviders: {
-        github: {
-          clientId: process.env.GITHUB_CLIENT_ID as string || '',
-          clientSecret: process.env.GITHUB_CLIENT_SECRET as string || '',
-          mapProfileToUser: (profile) => ({
-            githubUsername: profile.login,
-          }),
-        },
+      emailAndPassword: {
+        enabled: true,
+        minPasswordLength: 8,
+        maxPasswordLength: 128,
       },
     });
   }
