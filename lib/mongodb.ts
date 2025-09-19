@@ -8,6 +8,7 @@ if (!process.env.MONGODB_URI) {
 const uri = process.env.MONGODB_URI;
 const options: MongoClientOptions = {
   appName: "devrel.template.vercel-better-auth",
+  maxIdleTimeMS: 60000, // 1 minute
 };
 
 let client: MongoClient;
