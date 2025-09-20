@@ -25,6 +25,7 @@ export const PostSchema = z.object({
   points: z.number().default(1),
   submittedById: z.string(),
   submittedByName: z.string(),
+  submittedByGithubUsername: z.string(),
   submittedAt: z.date(),
   votes: z.array(z.string()).default([])
 });
@@ -68,4 +69,5 @@ export interface User {
   emailVerified: boolean;
   name: string;
   image?: string | null;
+  githubUsername: string;
 }

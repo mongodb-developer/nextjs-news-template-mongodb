@@ -27,7 +27,7 @@ export default function LoginPage() {
             priority
           />
         </Link>
-        <AuthForm mode="login" />
+        <AuthForm />
       </div>
     </div>
   )

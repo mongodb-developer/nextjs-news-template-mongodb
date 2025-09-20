@@ -2,8 +2,6 @@
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Spinner } from "@/components/ui/spinner"
 import {
   Card,
@@ -14,76 +12,28 @@ import {
 } from "@/components/ui/card"
 import { authClient } from "@/lib/auth-client"
 import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
 
-interface AuthFormProps extends React.ComponentPropsWithoutRef<"div"> {
-  mode: "login" | "signup"
-}
-
-export function AuthForm({ mode, className, ...props }: AuthFormProps) {
+export function AuthForm({ className, ...props }: React.ComponentPropsWithoutRef<"div">) {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  })
-  const router = useRouter()
 
-  const isLogin = mode === "login"
-  const title = isLogin ? "Welcome back" : "Create an account"
-  const description = isLogin ? "Enter your email and password to sign in" : "Enter your details to create an account"
-  const buttonText = isLogin ? "Sign In" : "Sign Up"
-  const linkText = isLogin ? "Don't have an account?" : "Already have an account?"
-  const linkLabel = isLogin ? "Sign up" : "Sign in"
-  const linkHref = isLogin ? "/signup" : "/login"
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleGitHubSignIn = async () => {
     setIsLoading(true)
     setError("")
 
     try {
-      if (isLogin) {
-        const { error } = await authClient.signIn.email({
-          email: formData.email,
-          password: formData.password,
-          callbackURL: "/",
-        })
+      const { error } = await authClient.signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      })
 
-        if (error) {
-          setError(error.message || "Failed to sign in")
-          setIsLoading(false)
-          return
-        }
-
-        router.push("/")
-      } else {
-        const { error } = await authClient.signUp.email({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-          callbackURL: "/",
-        })
-
-        if (error) {
-          setError(error.message || "Failed to create account")
-          setIsLoading(false)
-          return
-        }
-
-        router.push("/")
+      if (error) {
+        setError(error.message || "Failed to sign in with GitHub")
+        setIsLoading(false)
+        return
       }
     } catch {
-      setError(isLogin ? "Failed to sign in" : "Failed to create account")
+      setError("Failed to sign in with GitHub")
       setIsLoading(false)
     }
   }
@@ -92,89 +42,38 @@ export function AuthForm({ mode, className, ...props }: AuthFormProps) {
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">{title}</CardTitle>
-          <CardDescription>{description}</CardDescription>
+          <CardTitle className="text-xl">Welcome</CardTitle>
+          <CardDescription>Sign in to your account</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="grid gap-6">
+          <div className="grid gap-6">
             {error && (
               <div className="text-sm text-red-600 text-center">
                 {error}
               </div>
             )}
 
-            {!isLogin && (
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  disabled={isLoading}
-                />
-              </div>
-            )}
-
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                disabled={isLoading}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-                minLength={8}
-                disabled={isLoading}
-              />
-              {!isLogin && (
-                <p className="text-xs text-muted-foreground">
-                  Password must be at least 8 characters long
-                </p>
-              )}
-            </div>
-
             <Button
-              type="submit"
+              onClick={handleGitHubSignIn}
               className="w-full"
               disabled={isLoading}
+              variant="outline"
             >
               {isLoading ? (
                 <>
                   <Spinner size="sm" className="mr-2" />
-                  {isLogin ? "Signing in..." : "Creating account..."}
+                  Signing in...
                 </>
               ) : (
-                buttonText
+                <>
+                  <svg className="mr-2 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z" clipRule="evenodd" />
+                  </svg>
+                  Continue with GitHub
+                </>
               )}
             </Button>
-
-            <div className="text-center text-sm">
-              {linkText}{" "}
-              <Link href={linkHref} className="underline underline-offset-4">
-                {linkLabel}
-              </Link>
-            </div>
-          </form>
+          </div>
         </CardContent>
       </Card>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary">

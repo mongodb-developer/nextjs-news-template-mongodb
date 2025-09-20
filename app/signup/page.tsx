@@ -27,7 +27,7 @@ export default function SignupPage() {
             priority
           />
         </Link>
-        <AuthForm mode="signup" />
+        <AuthForm />
       </div>
     </div>
   )

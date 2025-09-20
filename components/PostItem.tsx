@@ -109,7 +109,14 @@ export function PostItem({ post, globalIndex }: PostItemProps) {
           <span>
             {" "}
             by{" "}
-            {post.submittedByName}
+            <a
+              href={`https://github.com/${post.submittedByGithubUsername}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-[#00684A] dark:hover:text-[#00ED64] transition-colors"
+            >
+              {post.submittedByName}
+            </a>
           </span>
           <span> {getTimeAgo(post.submittedAt)}</span>
         </div>
