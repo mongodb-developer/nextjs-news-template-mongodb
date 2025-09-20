@@ -58,7 +58,7 @@ export function PostItem({ post, globalIndex }: PostItemProps) {
   return (
     <div className="flex flex-row gap-2 items-start">
       {/* Global index */}
-      <span className="text-gray-400 text-sm leading-none mt-px font-mono w-6 text-right">
+      <span className="text-gray-400 text-sm leading-none mt-px font-mono min-w-8 text-right">
         {globalIndex}.
       </span>
       
