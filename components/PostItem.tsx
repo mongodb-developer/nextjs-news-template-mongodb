@@ -56,9 +56,9 @@ export function PostItem({ post, globalIndex }: PostItemProps) {
   };
 
   return (
-    <div className="flex flex-row gap-2 items-start">
+    <div className="flex flex-row gap-2 items-baseline">
       {/* Global index */}
-      <span className="text-gray-400 text-sm leading-none mt-px font-mono min-w-8 text-right">
+      <span className="text-gray-400 text-sm font-mono min-w-8 text-right leading-snug">
         {globalIndex}.
       </span>
       
@@ -66,7 +66,7 @@ export function PostItem({ post, globalIndex }: PostItemProps) {
       <button
         onClick={handleVote}
         disabled={isPending}
-        className={`mt-0.5 transition-colors disabled:opacity-50 ${
+        className={`transition-colors disabled:opacity-50 flex items-center translate-y-px ${
           optimisticVote.hasVoted
             ? "text-[#00684A] dark:text-[#00ED64]"
             : "text-gray-400 hover:text-[#00684A] dark:text-gray-400 dark:hover:text-[#00ED64]"
@@ -79,29 +79,29 @@ export function PostItem({ post, globalIndex }: PostItemProps) {
           viewBox="0 0 76 65"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="h-[11px]"
+          className="h-[13px] w-[13px]"
         >
           <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" fill="currentColor" />
         </svg>
       </button>
 
       {/* Post content */}
-      <div className="flex flex-col min-w-0 gap-2">
-        <div>
-          <h3 className="font-medium text-gray-900 dark:text-white leading-none inline">
+      <div className="flex flex-col min-w-0 gap-1.5">
+        <div className="leading-snug">
+          <h3 className="font-medium text-gray-900 dark:text-white inline">
             {post.title}
           </h3>
           <a
             href={post.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs leading-none text-gray-600 ml-2 dark:text-gray-400 hover:text-[#00684A] dark:hover:text-[#00ED64] transition-colors"
+            className="text-xs text-gray-600 ml-1 dark:text-gray-400 hover:text-[#00684A] dark:hover:text-[#00ED64] transition-colors"
           >
             ({new URL(post.url).hostname})
           </a>
         </div>
 
-        <div className="text-xs leading-none text-gray-600 dark:text-gray-400">
+        <div className="text-xs leading-tight text-gray-600 dark:text-gray-400">
           <span>
             {optimisticVote.points}{" "}
             {optimisticVote.points === 1 ? "point" : "points"}
