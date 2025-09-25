@@ -1,6 +1,6 @@
 ![Next.js with MongoDB and Better Auth](./public/og.png)
 
--> View demo: [news.mongodb.com](https://nextjs-news-template-mongodb.vercel.app/)
+-> View demo: [mongodb-news-template-nextjs.vercel.app](https://mongodb-news-template-nextjs.vercel.app/)
 
 # Next.js with MongoDB and Better Auth
 
