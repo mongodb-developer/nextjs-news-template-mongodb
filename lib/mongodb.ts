@@ -1,4 +1,4 @@
-import { attachDatabasePool } from '@vercel/functions';
+import { attachDatabasePool } from "@vercel/functions";
 import { MongoClient, MongoClientOptions } from "mongodb";
 
 if (!process.env.MONGODB_URI) {
@@ -11,37 +11,13 @@ const options: MongoClientOptions = {
   maxIdleTimeMS: 5000,
 };
 
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+export const client = new MongoClient(uri, options);
 
-if (process.env.NODE_ENV === "development") {
-  // In development mode, use a global variable so that the value
-  // is preserved across module reloads caused by HMR (Hot Module Replacement).
-  const globalWithMongo = global as typeof globalThis & {
-    _mongoClientPromise?: Promise<MongoClient>;
-  };
-
-  if (!globalWithMongo._mongoClientPromise) {
-    client = new MongoClient(uri, options);
-    globalWithMongo._mongoClientPromise = client.connect();
-  }
-  clientPromise = globalWithMongo._mongoClientPromise;
-} else {
-  // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options);
-
-  // Attach the client to ensure proper cleanup on function suspension
-  attachDatabasePool(client);
-
-  clientPromise = client.connect();
-}
+// Attach the client to ensure proper cleanup on function suspension.
+// See https://vercel.com/blog/the-real-serverless-compute-to-database-connection-problem-solved
+attachDatabasePool(client);
 
 // Get the database instance for Better Auth
 export async function getDatabase(dbName?: string) {
-  const client = await clientPromise;
   return client.db(dbName || process.env.MONGODB_DB || "better-auth");
 }
-
-// Export a module-scoped MongoClient promise. By doing this in a
-// separate module, the client can be shared across functions.
-export default clientPromise; 
