@@ -1,14 +1,14 @@
-import clientPromise from "@/lib/mongodb";
+import { client as dbClient } from "@/lib/mongodb";
 
 export async function dbConnectionStatus() {
   if (!process.env.MONGODB_URI) {
     return "No MONGODB_URI environment variable";
   }
-  if (!clientPromise) {
+  if (!dbClient) {
     return "Database client not initialized";
   }
   try {
-    const client = await clientPromise;
+    const client = await dbClient.connect();
     const db = client.db();
     const result = await db.command({ ping: 1 });
     console.log("MongoDB connection successful:", result);
